@@ -1,9 +1,9 @@
 # NHS A&E Performance Analysis and Demand Forecasting (2020-2026)
 
 ## Overview
-This project analyses NHS A&E (Accident & Emergency) performance data using multi-year provider lever datasets from **April 2020 to Feb 2026**.
+This project analyses NHS A&E (Accident & Emergency) performance data using multi-year provider-level datasets from **April 2020 to February 2026**.
 
-It combines __data engineering, SQL analysis, and machine learning__ to explore demand patterns, waiting-time pressures, and forecast future A&E attendances.
+It combines **data engineering, SQL analysis, and machine learning** to explore demand patterns, waiting-time pressures, and forecast future A&E attendances.
 
 ## Tools Used
 - Python (Pandas, NumPy)
@@ -17,11 +17,11 @@ It combines __data engineering, SQL analysis, and machine learning__ to explore 
 
 ## Project Workflow
 1. Multi-file data ingestion and cleaning (2020-2026)
-2. Data Standardisation and Feature Engineering
+2. Data standardisation and feature engineering
 3. Storage in SQLite database
-4. SQL-base exploratory analysis
+4. SQL-based exploratory analysis
 5. Data visualisation
-6. Time-series feature engineering (lags, rolling statitics)
+6. Time-series feature engineering (lags, rolling statistics)
 7. Predictive modelling for demand forecasting
 8. Model comparison and evaluation
 
@@ -32,7 +32,7 @@ NHS A&E departments face increasing operational pressure due to:
 - Long waiting times
 - Resource and capacity constraints
 
-This project investigates these challenges using historical data and extends the analysis into __predictive modelling__ to support better planning and decision-making.
+This project investigates these challenges using historical data and extends the analysis into **predictive modelling** to support better planning and decision-making.
 
 ## Key Questions Answered
 - Which organisations handle the highest A&E demand?
@@ -54,7 +54,7 @@ This project investigates these challenges using historical data and extends the
 - Engineered key performance metrics
 - Built SQL queries to analyse demand and waiting-time performance
 - Developed time-series features for forecasting
-- Trained a machine learning model to predict A&E demand
+- Trained and compared multiple machine learning models
 
 ## Predictive Modelling
 
@@ -73,7 +73,7 @@ Multiple models were developed to forecast A&E demand:
 
 ## Evaluation Metrics
 - Mean Absolute Error (MAE)
-- Root Mean Square Error (RMSE)
+- Root Mean Squared Error (RMSE)
 - R² Score
 
 Models were compared to identify the best-performing approach for forecasting NHS A&E demand.
@@ -86,7 +86,7 @@ The model relies most heavily on:
 - Rolling averages (short-term trends)
 - Seasonal signals (monthly patterns)
 
-This indicates that A&E demand is driven by __recent activity and recurring seasonal behaviour__
+This indicates that A&E demand is driven by **recent activity and recurring seasonal behaviour**
 
 ## App and API Layer
 
@@ -98,26 +98,39 @@ This project also includes:
 This extends the project from notebook-based analysis to an interactive data application.
 
 ## Project Structure
-- `data/raw` → original NHS dataset (ignored in Git)
-- `data/processed/`→ cleaned datasets, predictions, and metrics
-- `models`/ → saved model artifacts
+- `data/raw/` → original NHS datasets (ignored in Git)
+- `data/processed/` → cleaned datasets, predictions, and metrics
+- `models/` → saved model artifacts
 - `notebooks/` → analysis and forecasting notebooks
 - `src/` → reusable data processing functions
 - `sql/` → SQL analysis queries
-- `.db` → SQLite database
+- `api/` → FastAPI backend
+- `app/` → Streamlit dashboard
+- `nhs_ae_2020_2026.db` → SQLite database
 
 ## How to Run
 1. Clone the repository
 2. Install dependencies:
-  pip install -r requirements.txt
-3. Run the analysis notebook:
-- 01_data_analysis.ipynb
-- 02_forecasting_model.ipynb
-- 03_xgboost_forecasting.ipynb
-- 04_lstm_forecasting.ipynb
-- 05_model_comparison.ipynb
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Run the analysis notebooks in order:
+- `01_data_analysis.ipynb`
+- `02_forecasting_model.ipynb`
+- `03_xgboost_forecasting.ipynb`
+- `04_lstm_forecasting.ipynb`
+- `05_model_comparison.ipynb`
+
+4. Run the FastAPI backend:
+  - uvicorn api.main:app --reload
+
+5. Run the Streamlit app:
+  - streamlit run app/streamlit_app.py
 
 ## Future Improvements
 - Incorporate external features (weather, population, public holidays)
 - Hyperparameter tuning for improved model performance
-- Deploy model as an API for real-time predictions
+- Deploy the Streamlit app and FastAPI service
+- Add explainability tooling for model interpretation
