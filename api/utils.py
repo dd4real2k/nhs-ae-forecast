@@ -1,36 +1,22 @@
-import os
+from pathlib import Path
 import joblib
 import pandas as pd
+from src.config import PROJECT_ROOT, MODELS_DIR, DEFAULT_MODEL_FILENAME, MODEL_FEATURES
 
 
-MODEL_PATH = os.path.join("models", "random_forest_model.joblib")
+MODEL_PATH = MODELS_DIR / DEFAULT_MODEL_FILENAME
 
-FEATURES = [
-    "year",
-    "month",
-    "quarter",
-    "month_sin",
-    "month_cos",
-    "lag_1",
-    "lag_3",
-    "lag_6",
-    "lag_12",
-    "rolling_mean_3",
-    "rolling_mean_6",
-    "rolling_std_3",
-    "total_over_4hrs",
-    "total_emergency_admissions",
-    "total_booked_attendances",
-    "total_dta_waits",
-]
 
 
 def load_model():
-    if not os.path.exists(MODEL_PATH):
+    if not MODEL_PATH.exists():
         raise FileNotFoundError(f"Model not found at {MODEL_PATH}")
     return joblib.load(MODEL_PATH)
 
 
 def prepare_input(data: dict) -> pd.DataFrame:
     df = pd.DataFrame([data])
-    return df[FEATURES]
+    missing = [col for col in MODEL_FEATURES if col not in df.columns]
+    if missing:
+        raise ValueError(f"Missing input features: {missing}")
+    return df[MODEL_FEATURES]

@@ -1,46 +1,36 @@
-import os
-import pandas as pd
-import streamlit as st
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[2]))
+
 import requests
+import streamlit as st
+from src.app_data import load_model_ready_data, get_organisation_list, filter_organisation
+from src.forecasting import build_prediction_payload
+from src.config import API_BASE_URL
 
-processed_folder = os.path.join("..", "data", "processed")
-input_file = os.path.join(processed_folder, "nhs_ae_model_ready_with_features.csv")
-
-df = pd.read_csv(input_file)
-df["period"] = pd.to_datetime(df["period"])
+df = load_model_ready_data()
 
 st.title("Forecast")
 
-orgs = sorted(df["org_name"].dropna().unique())
+orgs = get_organisation_list(df)
 selected_org = st.selectbox("Select organisation", orgs)
 
-org_df = df[df["org_name"] == selected_org].sort_values("period").copy()
-
+org_df = filter_organisation(df, selected_org)
 latest = org_df.iloc[-1]
 
-payload = {
-    "year": int(latest["year"]),
-    "month": int(latest["month"]),
-    "quarter": int(latest["quarter"]),
-    "month_sin": float(latest["month_sin"]),
-    "month_cos": float(latest["month_cos"]),
-    "lag_1": float(latest["lag_1"]),
-    "lag_3": float(latest["lag_3"]),
-    "lag_6": float(latest["lag_6"]),
-    "lag_12": float(latest["lag_12"]),
-    "rolling_mean_3": float(latest["rolling_mean_3"]),
-    "rolling_mean_6": float(latest["rolling_mean_6"]),
-    "rolling_std_3": float(latest["rolling_std_3"]),
-    "total_over_4hrs": float(latest["total_over_4hrs"]),
-    "total_emergency_admissions": float(latest["total_emergency_admissions"]),
-    "total_booked_attendances": float(latest["total_booked_attendances"]),
-    "total_dta_waits": float(latest["total_dta_waits"]),
-}
+payload = build_prediction_payload(latest)
 
 if st.button("Generate Forecast"):
-    response = requests.post("http://127.0.0.1:8000/predict", json=payload, timeout=30)
-    if response.status_code == 200:
+    try:
+        response = requests.post(f"{API_BASE_URL}/predict", json=payload, timeout=30)
+        response.raise_for_status()
         result = response.json()
         st.metric("Predicted Attendance", f"{result['predicted_attendance']:,.0f}")
-    else:
-        st.error("Failed to get prediction from API.")
+    except requests.exceptions.ConnectionError:
+        st.error("Could not connect to the API. Make sure FastAPI is running.")
+    except requests.exceptions.Timeout:
+        st.error("The API request timed out.")
+    except requests.exceptions.HTTPError:
+        st.error(f"API error: {response.text}")
+    except Exception as e:
+        st.error(f"Unexpected error: {e}")

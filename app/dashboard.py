@@ -9,7 +9,9 @@ st.set_page_config(
 st.title("NHS A&E Performance Analysis and Demand Forecasting")
 st.markdown(
     """
-    This app explores NHS A&E demand trends, waiting-time pressure,
+    Explore NHS A&E demand trends, waiting-time pressure, organisation-level analyisis
     forecasting outputs, and model comparison results.
     """
 )
+
+st.info("Use the navigation panel on the left to move between pages.")

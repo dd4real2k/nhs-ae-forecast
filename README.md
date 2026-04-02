@@ -5,6 +5,27 @@ This project analyses NHS A&E (Accident & Emergency) performance data using mult
 
 It combines **data engineering, SQL analysis, and machine learning** to explore demand patterns, waiting-time pressures, and forecast future A&E attendances.
 
+## Project Highlights
+- Analysed NHS A&E provider-level data from April 2020 to February 2026
+- Built SQL queries to investigate demand and waiting-time performance
+- Developed and compared multiple forecasting models
+- Extended the project with a FastAPI backend and Streamlit dashboard
+
+## Live Demo
+- Streamlit App: []
+- API Docs: []
+
+## Dashboard Preview
+
+### Main Dashboard
+![Dashboard](images/dashboard_main.png)
+
+### Forecast View
+![Forecast](images/dashboard_forecast.png)
+
+### Model Comparison
+![Model Comparison](images/model_comparison.png)
+
 ## Tools Used
 - Python (Pandas, NumPy)
 - SQLite
@@ -15,6 +36,15 @@ It combines **data engineering, SQL analysis, and machine learning** to explore 
 - TensorFlow (LSTM)
 - Jupyter Notebook
 
+## Skills Demonstrated
+- Data cleaning and preprocessing
+- SQL analysis
+- Time-series feature engineering
+- Machine learning model development
+- Model evaluation and comparison
+- API development with FastAPI
+- Dashboard development with Streamlit
+
 ## Project Workflow
 1. Multi-file data ingestion and cleaning (2020-2026)
 2. Data standardisation and feature engineering
@@ -24,6 +54,9 @@ It combines **data engineering, SQL analysis, and machine learning** to explore 
 6. Time-series feature engineering (lags, rolling statistics)
 7. Predictive modelling for demand forecasting
 8. Model comparison and evaluation
+
+## Project Architecture
+Raw NHS Files → Data Cleaning & Standardisation → SQLite Database → SQL Analysis → Feature Engineering → Forecasting Models → FastAPI Backend → Streamlit Dashboard
 
 ## Business Problem
 NHS A&E departments face increasing operational pressure due to:
@@ -56,6 +89,17 @@ This project investigates these challenges using historical data and extends the
 - Developed time-series features for forecasting
 - Trained and compared multiple machine learning models
 
+# SQL Queries
+
+This folder contains SQL queries used for the NHS A&E analysis project.
+
+- `01_national_summary.sql` — national totals and row count
+- `02_top_attendance_orgs.sql` — busiest organisations by attendance
+- `03_over4_waits.sql` — worst over-4-hour wait pressure
+- `04_long_waits.sql` — longest 12+ hour waits
+- `05_regional_summary.sql` — regional/parent organisation comparison
+- `06_rankings.sql` — pressure bands and ranking queries
+
 ## Predictive Modelling
 
 Multiple models were developed to forecast A&E demand:
@@ -64,6 +108,9 @@ Multiple models were developed to forecast A&E demand:
 - Random Forest
 - XGBoost
 - LSTM (deep learning)
+
+## Best Model Summary
+Among the models tested, XGBoost achieved the strongest forecasting performance based on RMSE and R², showing better ability to capture non-linear demand patterns than the baseline and tree-based alternatives.
 
 ## Features Used
 - Lag features (1, 3, 6, 12 months)
@@ -77,6 +124,15 @@ Multiple models were developed to forecast A&E demand:
 - R² Score
 
 Models were compared to identify the best-performing approach for forecasting NHS A&E demand.
+
+## Model Performance
+
+| Model | MAE | RMSE | R² |
+|------|-----|------|----|
+| Linear Regression | ... | ... | ... |
+| Random Forest | ... | ... | ... |
+| XGBoost | ... | ... | ... |
+| LSTM | ... | ... | ... |
 
 ## Feature Importance Insights
 
@@ -107,6 +163,9 @@ This extends the project from notebook-based analysis to an interactive data app
 - `api/` → FastAPI backend
 - `app/` → Streamlit dashboard
 - `nhs_ae_2020_2026.db` → SQLite database
+
+## Data Source
+This project uses NHS England A&E monthly statistics covering April 2020 to February 2026. The data was combined across multiple monthly files, cleaned, standardised, and stored in SQLite for analysis and forecasting [https://www.england.nhs.uk/statistics/statistical-work-areas/ae-waiting-times-and-activity/ae-attendances-and-emergency-admissions-2025-26/].
 
 ## How to Run
 1. Clone the repository

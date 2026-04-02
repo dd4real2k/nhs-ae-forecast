@@ -1,33 +1,18 @@
-import os
-import pandas as pd
 import streamlit as st
-import plotly.express as px
+from src.app_data import load_model_ready_data, get_organisation_list, filter_organisation
+from src.charts import plot_org_attendance, plot_org_over4
 
-processed_folder = os.path.join("..", "data", "processed")
-input_file = os.path.join(processed_folder, "nhs_ae_model_ready_with_features.csv")
-
-df = pd.read_csv(input_file)
-df["period"] = pd.to_datetime(df["period"])
+df = load_model_ready_data()
 
 st.title("Organisation Analysis")
 
-orgs = sorted(df["org_name"].dropna().unique())
+orgs = get_organisation_list(df)
 selected_org = st.selectbox("Select organisation", orgs)
 
-org_df = df[df["org_name"] == selected_org].copy()
+org_df = filter_organisation(df, selected_org)
 
-fig = px.line(
-    org_df,
-    x="period",
-    y="total_attendances",
-    title=f"Total Attendances - {selected_org}"
-)
+fig = plot_org_attendance(org_df, selected_org)
 st.plotly_chart(fig, use_container_width=True)
 
-fig2 = px.line(
-    org_df,
-    x="period",
-    y="total_over_4hrs",
-    title=f"Over 4-Hour Waits - {selected_org}"
-)
+fig2 = plot_org_over4(org_df, selected_org)
 st.plotly_chart(fig2, use_container_width=True)

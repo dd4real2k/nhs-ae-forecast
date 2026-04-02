@@ -1,25 +1,11 @@
-import os
-import pandas as pd
 import streamlit as st
-import plotly.express as px
+from src.app_data import load_model_ready_data
+from src.charts import plot_monthly_attendance
 
-processed_folder = os.path.join("..", "data", "processed")
-input_file = os.path.join(processed_folder, "nhs_ae_model_ready_with_features.csv")
+df = load_model_ready_data()
 
-df = pd.read_csv(input_file)
-df["period"] = pd.to_datetime(df["period"])
-
-monthly = (
-    df.groupby("period", as_index=False)["total_attendances"]
-    .sum()
-)
+monthly = df.groupby("period", as_index=False)["total_attendances"].sum()
 
 st.title("Overview")
-
-fig = px.line(
-    monthly,
-    x="period",
-    y="total_attendances",
-    title="Monthly NHS A&E Attendances"
-)
+fig = plot_monthly_attendance(monthly)
 st.plotly_chart(fig, use_container_width=True)
