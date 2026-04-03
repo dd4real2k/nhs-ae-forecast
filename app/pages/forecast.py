@@ -11,15 +11,6 @@ from src.config import API_BASE_URL
 df = load_model_ready_data()
 
 st.title("Forecast")
-st.write("API_BASE_URL:", API_BASE_URL)
-
-# Test API health
-try:
-    health = requests.get(f"{API_BASE_URL}/health", timeout=20)
-    st.write("Health check status:", health.status_code)
-    st.write("Health check response:", health.text)
-except Exception as e:
-    st.error(f"Health check failed: {e}")
 
 orgs = get_organisation_list(df)
 selected_org = st.selectbox("Select organisation", orgs)
@@ -38,7 +29,6 @@ if st.button("Generate Forecast"):
         predicted_value = float(result["predicted_attendance"])
 
         st.metric("Predicted Attendance", f"{predicted_value:,.0f}")
-
     except requests.exceptions.ConnectionError:
         st.error("Could not connect to the API. Make sure FastAPI is running.")
     except requests.exceptions.Timeout:
