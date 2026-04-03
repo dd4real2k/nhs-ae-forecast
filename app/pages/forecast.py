@@ -10,7 +10,7 @@ from src.config import API_BASE_URL
 
 df = load_model_ready_data()
 
-st.title("Forecast - Build Test")
+st.title("Forecast NHS A&E Attendances")
 
 st.write("API_BASE_URL:", API_BASE_URL)
 
