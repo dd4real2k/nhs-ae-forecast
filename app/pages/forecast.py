@@ -22,10 +22,13 @@ payload = build_prediction_payload(latest)
 
 if st.button("Generate Forecast"):
     try:
-        response = requests.post(f"{http://nhs-ae-sql-analysis.onrender.com}/predict", json=payload, timeout=30)
+        response = requests.post(f"{API_BASE_URL}/predict", json=payload, timeout=30)
         response.raise_for_status()
+
         result = response.json()
-        st.metric("Predicted Attendance", f"{result['predicted_attendance']:,.0f}")
+        predicted_value = float(result["predicted_attendance"])
+
+        st.metric("Predicted Attendance", f"{predicted_value:,.0f}")
     except requests.exceptions.ConnectionError:
         st.error("Could not connect to the API. Make sure FastAPI is running.")
     except requests.exceptions.Timeout:
