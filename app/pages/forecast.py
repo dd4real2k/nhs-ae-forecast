@@ -12,6 +12,15 @@ df = load_model_ready_data()
 
 st.title("Forecast")
 
+st.write("API_BASE_URL:", API_BASE_URL)
+
+try:
+    test = requests.get(f"{API_BASE_URL}/health", timeout=20)
+    st.write("Health status:", test.status_code)
+    st.write("Health body:", test.text)
+except Exception as e:
+    st.error(f"Health check failed: {e}")
+
 orgs = get_organisation_list(df)
 selected_org = st.selectbox("Select organisation", orgs)
 
