@@ -9,7 +9,7 @@ st.set_page_config(
 st.title("NHS A&E Performance Analysis and Demand Forecasting")
 st.markdown(
     """
-    Explore NHS A&E demand trends, waiting-time pressure, organisation-level analyisis
+    Explore NHS A&E demand trends, waiting-time pressure, organisation-level analysis
     forecasting outputs, and model comparison results.
     """
 )

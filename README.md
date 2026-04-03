@@ -127,11 +127,12 @@ Models were compared to identify the best-performing approach for forecasting NH
 
 ## Model Performance
 
-    model |	MAE |	RMSE |	R2 |	rmse_rank |	mae_rank |	r2_rank
-0 	XGBoost |	416.167358 | 701.702238 |	0.994462 |	1.0 |	2.0 |	1.0
-1 	Random Forest |	414.320308 |	720.905674 |	0.994155 |	2.0 |	1.0 |	2.0
-2 	Linear Regression |	530.182780 |	802.000728 |	0.992766 |	3.0 |	4.0 |	3.0
-3 	LSTM |	528.642469 |	838.547306 |	0.992092 |	4.0 |	3.0 |	4.0
+| Model | MAE | RMSE | R² |
+|------|-----:|------:|----:|
+| XGBoost | 416.17 | 701.70 | 0.9945 |
+| Random Forest | 414.32 | 720.91 | 0.9942 |
+| Linear Regression | 530.18 | 802.00 | 0.9928 |
+| LSTM | 528.64 | 838.55 | 0.9921 |
 
 ## Feature Importance Insights
 
@@ -191,7 +192,7 @@ pip install -r requirements.txt
   - streamlit run app/dashboard.py
 
 ## Future Improvements
-- Incorporate external features (weather, population, public holidays)
-- Hyperparameter tuning for improved model performance
-- Deploy the Streamlit app and FastAPI service
-- Add explainability tooling for model interpretation
+- Incorporate external features such as weather, population, and public holidays to improve forecasting accuracy
+- Apply more extensive hyperparameter tuning across tree-based and deep learning models
+- Add explainability tooling such as SHAP to better understand feature contribution and model decisions
+- Automate data pipeline updates, model retraining, and forecast generation as new NHS datasets are released
