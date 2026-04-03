@@ -127,12 +127,11 @@ Models were compared to identify the best-performing approach for forecasting NH
 
 ## Model Performance
 
-| Model | MAE | RMSE | R² |
-|------|-----|------|----|
-| Linear Regression | ... | ... | ... |
-| Random Forest | ... | ... | ... |
-| XGBoost | ... | ... | ... |
-| LSTM | ... | ... | ... |
+    model |	MAE |	RMSE |	R2 |	rmse_rank |	mae_rank |	r2_rank
+0 	XGBoost |	416.167358 | 701.702238 |	0.994462 |	1.0 |	2.0 |	1.0
+1 	Random Forest |	414.320308 |	720.905674 |	0.994155 |	2.0 |	1.0 |	2.0
+2 	Linear Regression |	530.182780 |	802.000728 |	0.992766 |	3.0 |	4.0 |	3.0
+3 	LSTM |	528.642469 |	838.547306 |	0.992092 |	4.0 |	3.0 |	4.0
 
 ## Feature Importance Insights
 
@@ -165,7 +164,10 @@ This extends the project from notebook-based analysis to an interactive data app
 - `nhs_ae_2020_2026.db` → SQLite database
 
 ## Data Source
-This project uses NHS England A&E monthly statistics covering April 2020 to February 2026. The data was combined across multiple monthly files, cleaned, standardised, and stored in SQLite for analysis and forecasting [https://www.england.nhs.uk/statistics/statistical-work-areas/ae-waiting-times-and-activity/ae-attendances-and-emergency-admissions-2025-26/].
+This project uses NHS England A&E monthly statistics covering April 2020 to February 2026. The data was combined across multiple monthly files, cleaned, standardised, and stored in SQLite for analysis and forecasting.
+
+Source: [NHS England A&E Attendances and Emergency Admissions](https://www.england.nhs.uk/statistics/statistical-work-areas/ae-waiting-times-and-activity/ae-attendances-and-emergency-admissions-2025-26/)
+
 
 ## How to Run
 1. Clone the repository
@@ -186,7 +188,7 @@ pip install -r requirements.txt
   - uvicorn api.main:app --reload
 
 5. Run the Streamlit app:
-  - streamlit run app/streamlit_app.py
+  - streamlit run app/dashboard.py
 
 ## Future Improvements
 - Incorporate external features (weather, population, public holidays)
