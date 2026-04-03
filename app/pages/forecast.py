@@ -10,24 +10,11 @@ from src.app_data import load_model_ready_data, get_organisation_list, filter_or
 from src.forecasting import build_prediction_payload
 import src.config as cfg
 
-cfg = importlib.reload(cfg)
 API_BASE_URL = cfg.API_BASE_URL
 
 df = load_model_ready_data()
 
-st.title("Forecast")
-
-st.write("CONFIG FILE:", cfg.__file__)
-st.write("CONFIG VERSION:", getattr(cfg, "CONFIG_VERSION", "missing"))
-st.write("CONFIG API_BASE_URL:", cfg.API_BASE_URL)
-st.write("API_BASE_URL:", API_BASE_URL)
-
-try:
-    test = requests.get(f"{API_BASE_URL}/health", timeout=20)
-    st.write("Health status:", test.status_code)
-    st.write("Health body:", test.text)
-except Exception as e:
-    st.error(f"Health check failed: {e}")
+st.title("Forecast NHS A&E Attendances")
 
 orgs = get_organisation_list(df)
 selected_org = st.selectbox("Select organisation", orgs)
