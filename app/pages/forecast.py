@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+import importlib
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
@@ -9,6 +10,7 @@ from src.app_data import load_model_ready_data, get_organisation_list, filter_or
 from src.forecasting import build_prediction_payload
 import src.config as cfg
 
+cfg = importlib.reload(cfg)
 API_BASE_URL = cfg.API_BASE_URL
 
 df = load_model_ready_data()
