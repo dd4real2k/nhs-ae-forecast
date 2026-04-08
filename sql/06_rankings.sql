@@ -1,7 +1,10 @@
--- NHS A&E Performance Analysis
+-- Project: NHS A&E Performance Analysis
 -- File: 06_rankings.sql
--- Description:
--- Pressure banding and organisation ranking using SQL window functions
+-- Purpose: Rank NHS organisations by attendance pressure and long waits
+-- Grain: Organisation-level summary
+-- Notes:
+--   - Filters to organisations with meaningful attendance volume where relevant
+--   - Uses window functions for ranking
 
 SELECT
     org_name,
