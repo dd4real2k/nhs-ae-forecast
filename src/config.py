@@ -1,10 +1,6 @@
 import os
 from pathlib import Path
 
-MODELS_DIR = Path("models")
-DEFAULT_MODEL_FILENAME = "random_forest_model.joblib"
-MODEL_FEATURES = ["feature1", "feature2"]
-
 try:
     from dotenv import load_dotenv
     load_dotenv()
@@ -25,7 +21,7 @@ MODELS_DIR = PROJECT_ROOT / "models"
 MODEL_READY_FILENAME = "nhs_ae_model_ready_with_features.csv"
 MODEL_COMPARISON_FILENAME = "model_comparison.csv"
 
-DEFAULT_MODEL_NAME = os.getenv("MODEL_FILENAME", "xgboost_model.joblib")
+DEFAULT_MODEL_FILENAME = os.getenv("MODEL_FILENAME", "random_forest_model.joblib")
 
 API_BASE_URL = STREAMLIT_API_BASE_URL or os.getenv(
     "API_BASE_URL",
