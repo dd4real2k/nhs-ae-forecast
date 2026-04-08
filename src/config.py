@@ -1,9 +1,13 @@
 import os
 from pathlib import Path
 
-# Try Streamlit secret if available
 try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except Exception:
+    pass
 
+try:
     import streamlit as st
     STREAMLIT_API_BASE_URL = st.secrets.get("API_BASE_URL", None)
 except Exception:
@@ -16,19 +20,13 @@ MODELS_DIR = PROJECT_ROOT / "models"
 
 MODEL_READY_FILENAME = "nhs_ae_model_ready_with_features.csv"
 MODEL_COMPARISON_FILENAME = "model_comparison.csv"
-DEFAULT_MODEL_FILENAME = "random_forest_model.joblib"
 
-# Priority:
-# 1. Streamlit secrets
-# 2. Environment variable
-# 3. Local fallback
-# API_BASE_URL = STREAMLIT_API_BASE_URL or os.getenv(
-#    "API_BASE_URL", "http://127.0.0.1:8000"
-#)
+DEFAULT_MODEL_NAME = os.getenv("MODEL_FILENAME", "xgboost_model.joblib")
 
-CONFIG_VERSION = "V2_FORCE_REBUILD"
-
-API_BASE_URL = "https://nhs-ae-sql-analysis.onrender.com"
+API_BASE_URL = STREAMLIT_API_BASE_URL or os.getenv(
+    "API_BASE_URL",
+    "http://127.0.0.1:8000",
+)
 
 MODEL_FEATURES = [
     "year",
