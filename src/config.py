@@ -1,6 +1,10 @@
 import os
 from pathlib import Path
 
+MODELS_DIR = Path("models")
+DEFAULT_MODEL_FILENAME = "your_model_name.pkl"
+MODEL_FEATURES = ["feature1", "feature2"]
+
 try:
     from dotenv import load_dotenv
     load_dotenv()

@@ -2,7 +2,6 @@
 End-to-end data project analysing NHS A&E performance (2020–2026), combining SQL analytics, machine learning, and deployment (FastAPI + Streamlit) to model and forecast healthcare demand.
 
 ## Why This Project Matters
-
 This project demonstrates the ability to:
 - Analyse real-world healthcare data at scale using SQL and Python
 - Identify operational pressure points in NHS A&E services
@@ -11,7 +10,6 @@ This project demonstrates the ability to:
 - Structure a production-style data project end-to-end
 
 ## Project Summary
-
 This project analyses NHS A&E (Accident & Emergency) performance data using multi-year provider-level datasets from **April 2020 to February 2026**.
 
 It combines **data engineering, SQL analytics, and machine learning** to explore demand patterns, waiting-time pressures, and forecast future A&E attendances.
@@ -19,7 +17,6 @@ It combines **data engineering, SQL analytics, and machine learning** to explore
 The project demonstrates how healthcare data can be used to support operational planning and decision-making.
 
 ## Key Insights
-
 - High-demand trusts consistently experience higher 4-hour breaches
 - Significant variation exists in 12+ hour delays across organisations
 - Clear seasonal patterns show increased pressure during winter months
@@ -73,14 +70,33 @@ Raw NHS Files
 - API development with FastAPI
 - Data app development (Streamlit)
 
+# NHS A&E Performance Analysis & Forecasting
+An end-to-end healthcare analytics project analysing NHS A&E performance from April 2020 to February 2026 using SQL, Python, machine learning, FastAPI, and Streamlit.
+
+This project is designed to demonstrate job-ready skills in:
+- SQL analytics on operational healthcare data
+- Data cleaning and feature engineering
+- Forecast model development and evaluation
+- API deployment with FastAPI
+- Dashboard development with Streamlit
+- Writing reusable, testable Python code
+
 ## Business Problem
-NHS A&E departments face increasing operational pressure due to:
+NHS A&E departments face sustained operational pressure driven by rising demand, long waiting times, and resource constraints.
 
-- Rising patient demand
-- Long waiting times
-- Resource and capacity constraints
+This project explores those pressures using provider-level monthly NHS A&E data and extends the analysis into forecasting, helping answer questions such as:
+- Which organisations experience the highest demand?
+- Where are 4-hour breaches most severe?
+- Which trusts face the greatest long-wait pressure?
+- Can future monthly attendance be forecast from recent operational patterns?
 
-This project investigates these challenges using historical data and extends the analysis into **predictive modelling** to support forward planning and better resource allocation.
+## Project Scope
+The project combines:
+- **SQL analysis** for operational insight
+- **Python data processing** for reusable feature engineering
+- **Machine learning** for monthly demand forecasting
+- **FastAPI** for serving predictions
+- **Streamlit** for interactive reporting
 
 ## Key Questions Answered
 - Which organisations handle the highest A&E demand?
@@ -198,6 +214,31 @@ streamlit run app/Dashboard.py
 ## Summary
 
 This project demonstrates the ability to take raw healthcare data through the full data lifecycle, from ingestion and analysis to modelling and deployment, in a way that reflects real-world data roles.
+
+## Testing and Quality
+
+This repository includes:
+- unit tests for core utility functions
+- API endpoint tests
+- GitHub Actions CI to run tests automatically on push and pull request
+
+## Limitations
+
+- Forecasting currently uses historical operational features only
+- No external drivers such as weather, holidays, flu trends, or population shifts are included
+- SQLite is suitable for demonstration, but a production environment would likely use PostgreSQL or a warehouse
+- Monitoring, retraining, and model versioning are not yet automated
+
+## Interview Talking Points
+
+In interview, this project demonstrates that I can:
+1. work with messy real-world healthcare data
+2. write SQL to answer operational questions
+3. engineer time-series features for forecasting
+4. compare multiple regression approaches
+5. expose a model through an API
+6. build a simple user-facing analytics application
+7. structure code into reusable modules with testing
 
 ## Data Source
 NHS England A&E monthly statistics (April 2020 – February 2026)
