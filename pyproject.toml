@@ -1,11 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nhs-ae-sql-analysis"
+version = "0.1.0"
+description = "NHS A&E performance analysis and forecasting"
+requires-python = ">=3.10"
+
+[tool.setuptools.packages.find]
+include = ["src*", "api*", "app*"]
+
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
-
-[tool.black]
-line-length = 88
-target-version = ["py311"]
-
-[tool.isort]
-profile = "black"
-line_length = 88

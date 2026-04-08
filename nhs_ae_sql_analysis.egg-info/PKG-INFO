@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: nhs-ae-sql-analysis
+Version: 0.1.0
+Summary: NHS A&E performance analysis and forecasting
+Requires-Python: >=3.10

@@ -1,3 +1,10 @@
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
 import pandas as pd
 import plotly.graph_objects as go
 import requests
@@ -12,54 +19,32 @@ st.set_page_config(page_title="Forecast", layout="wide")
 df = load_model_ready_data()
 
 st.title("Forecast NHS A&E Attendances")
-st.caption("Generate the next-month attendance forecast for a selected NHS organisation.")
 
 orgs = get_organisation_list(df)
 selected_org = st.selectbox("Select organisation", orgs)
 
-org_df = filter_organisation(df, selected_org).sort_values("period")
+org_df = filter_organisation(df, selected_org)
 latest = org_df.iloc[-1]
+
 payload = build_prediction_payload(latest)
 
-# Show recent history
-history_window = st.slider(
-    "Months of history to display",
-    min_value=12,
-    max_value=60,
-    value=24,
-    step=6,
-)
 
+history_window = st.slider("Months of history to display", min_value=12, max_value=60, value=24, step=6)
 plot_df = org_df.tail(history_window).copy()
-
-col1, col2, col3 = st.columns(3)
-col1.metric("Latest Actual Attendance", f"{plot_df.iloc[-1]['total_attendances']:,.0f}")
-col2.metric("Latest Total Over 4hrs", f"{plot_df.iloc[-1]['total_over_4hrs']:,.0f}")
-col3.metric("Latest Emergency Admissions", f"{plot_df.iloc[-1]['total_emergency_admissions']:,.0f}")
 
 if st.button("Generate Forecast"):
     with st.spinner("Generating forecast..."):
         try:
             response = requests.post(f"{API_BASE_URL}/predict", json=payload, timeout=30)
             response.raise_for_status()
-            result = response.json()
 
+            result = response.json()
             predicted_value = float(result["predicted_attendance"])
+
+            st.metric("Predicted Attendance", f"{predicted_value:,.0f}")
+
             last_date = pd.to_datetime(org_df["period"].max())
             next_date = last_date + pd.offsets.MonthBegin(1)
-
-            change = predicted_value - float(plot_df.iloc[-1]["total_attendances"])
-            pct_change = (
-                change / float(plot_df.iloc[-1]["total_attendances"]) * 100
-                if float(plot_df.iloc[-1]["total_attendances"]) != 0
-                else 0
-            )
-
-            st.metric(
-                "Predicted Next-Month Attendance",
-                f"{predicted_value:,.0f}",
-                f"{pct_change:+.2f}% vs latest month",
-            )
 
             fig = go.Figure()
 
