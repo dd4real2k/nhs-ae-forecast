@@ -26,7 +26,7 @@ DEFAULT_MODEL_TYPE = os.getenv("MODEL_TYPE", "xgboost")
 
 API_BASE_URL = STREAMLIT_API_BASE_URL or os.getenv(
     "API_BASE_URL",
-    "http://127.0.0.1:8000",
+    "https://nhs-ae-sql-analysis.onrender.com",
 )
 
 MODEL_FEATURES = [
