@@ -92,4 +92,4 @@ if st.button("Generate Forecast"):
         except requests.exceptions.HTTPError:
             st.error(f"API error: {response.text}")
         except Exception as exc:
-            st.error(f"Unexpected error: {e}")
+            st.error(f"Unexpected error: {exc}")

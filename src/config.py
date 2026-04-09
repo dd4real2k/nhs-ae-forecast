@@ -21,7 +21,8 @@ MODELS_DIR = PROJECT_ROOT / "models"
 MODEL_READY_FILENAME = "nhs_ae_model_ready_with_features.csv"
 MODEL_COMPARISON_FILENAME = "model_comparison.csv"
 
-DEFAULT_MODEL_FILENAME = os.getenv("MODEL_FILENAME", "random_forest_model.joblib")
+DEFAULT_MODEL_FILENAME = os.getenv("MODEL_FILENAME", "xgboost_model.json")
+DEFAULT_MODEL_TYPE = os.getenv("MODEL_TYPE", "xgboost")
 
 API_BASE_URL = STREAMLIT_API_BASE_URL or os.getenv(
     "API_BASE_URL",
