@@ -2,6 +2,7 @@ import json
 import pandas as pd
 from sklearn.metrics import mean_absolute_error, r2_score, root_mean_squared_error
 from src.config import MODEL_FEATURES
+from src.payloads import build_prediction_payload
 
 
 def prepare_training_data(df: pd.DataFrame, target_col: str):
@@ -16,17 +17,6 @@ def evaluate_regression_model(y_true, y_pred) -> dict:
         "RMSE": float(root_mean_squared_error(y_true, y_pred)),
         "R2": float(r2_score(y_true, y_pred)),
     }
-
-
-def build_prediction_payload(row: pd.Series) -> dict:
-    payload = {}
-    for feature in MODEL_FEATURES:
-        if feature in ["year", "month", "quarter"]:
-            payload[feature] = int(row[feature])
-        else:
-            payload[feature] = float(row[feature])
-    return payload
-
 
 def save_metrics(metrics: dict, output_path: str) -> None:
     with open(output_path, "w") as f:

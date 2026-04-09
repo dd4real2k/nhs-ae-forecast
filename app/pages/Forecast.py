@@ -11,7 +11,7 @@ import requests
 import streamlit as st
 
 from src.app_data import load_model_ready_data, get_organisation_list, filter_organisation
-from src.forecasting import build_prediction_payload
+from src.payloads import build_prediction_payload
 from src.config import API_BASE_URL
 
 st.set_page_config(page_title="Forecast", layout="wide")
@@ -74,7 +74,7 @@ if st.button("Generate Forecast"):
                 hovermode="x unified",
             )
 
-            st.plotly_chart(fig, width="stretch")
+            st.plotly_chart(fig, use_container_width=True)
 
             forecast_summary = pd.DataFrame(
                 {
@@ -83,7 +83,7 @@ if st.button("Generate Forecast"):
                     "Type": ["Latest Actual", "Forecast"],
                 }
             )
-            st.dataframe(forecast_summary, width="stretch")
+            st.dataframe(forecast_summary, use_container_width=True)
 
         except requests.exceptions.ConnectionError:
             st.error("Could not connect to the API. Make sure FastAPI is running.")
