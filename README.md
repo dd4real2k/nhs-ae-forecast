@@ -14,18 +14,20 @@ This project demonstrates how data science can support real healthcare decision-
 
 ## Live Demo
 - Streamlit App: [View Dashboard](Coming Soon)
-- API Docs: [View Here](Coming Soon)
+- API Docs: [View Here](https://nhs-ae-sql-analysis.onrender.com/docs)
+- Health Check: [View Here](https://nhs-ae-sql-analysis.onrender.com/health)
 
 ## Dashboard Preview
+Below are key views from the interactive NHS A&E demand forecasting dashboard.
 
-### Main Dashboard
-![Dashboard](images/dashboard_main.png)
+### Dashboard Overview
+[![Dashboard Overview](images/dashboard_main.png)](images/dashboard_main.png)
 
 ### Forecast View
-![Forecast](images/dashboard_forecast.png)
+[![Forecast Dashboard](images/dashboard_forecast.png)](images/dashboard_forecast.png)
 
 ### Model Comparison
-![Model Comparison](images/model_comparison.png)
+[![Model Comparison](images/model_comparison.png)](images/model_comparison.png)
 
 ## Project Architecture
 ```
@@ -72,9 +74,10 @@ This folder contains SQL queries used for the NHS A&E analysis project.
 | Linear Regression | 530.18 | 802.00 | 0.9928 |
 | LSTM | 528.64 | 838.55 | 0.9921 |
 
-## Key Modelling Insight (XGBoost vs LSTM)
+## Model Selection
+Several forecasting models were evaluated, including Linear Regression, Random Forest, XGBoost, and LSTM.
 
-Although LSTM was explored for sequence modelling, XGBoost outperformed all models.
+For deployment, **XGBoost** was selected as the production model because it delivered the best overall balance of forecast quality based on **RMSE** and **R²**, while Random Forest achieved a slightly lower MAE.
 
 ## Why XGBoost performed better:
 - Handles structured/tabular data more effectively
@@ -112,6 +115,12 @@ Predict monthly A&E attendances per NHS organisation
 - Model comparison display
 
 This transforms the project into a **deployable data product**, not just analysis.
+
+## Deployment Configuration
+The live API and dashboard are configured to use:
+
+- **Model Type:** XGBoost
+- **Model File:** `models/xgboost_model.json`
 
 ## Key Takeaway
 This project shows that:
